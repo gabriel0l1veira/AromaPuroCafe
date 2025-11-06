@@ -1,0 +1,66 @@
+node_modules
+# ============================================
+# 🌐 FRONTEND (Next.js)
+# ============================================
+frontend/.next
+frontend/node_modules
+frontend/.env
+frontend/.env.local
+frontend/.env.development
+frontend/.env.production
+frontend/.vercel
+frontend/out
+frontend/dist
+frontend/package-lock.json
+frontend/yarn.lock
+frontend/npm-debug.log*
+frontend/.turbo
+frontend/.vscode
+frontend/.DS_Store
+
+# ============================================
+# 🐍 BACKEND (Flask / Python)
+# ============================================
+backend/__pycache__/
+backend/*.pyc
+backend/.env
+backend/.env.local
+backend/.venv/
+backend/venv/
+backend/instance/
+backend/.pytest_cache/
+backend/.mypy_cache/
+backend/.idea/
+backend/.DS_Store
+backend/.vscode
+backend/database.db
+backend/*.sqlite3
+backend/*.db
+
+# ============================================
+# ⚙️ SISTEMA / GERAIS
+# ============================================
+.env
+.env.local
+.vscode/
+__pycache__/
+.DS_Store
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.sqlite
+*.sqlite3
+Thumbs.db
+
+# ============================================
+# 🚀 DEPLOY / AMBIENTES
+# ============================================
+# Render & Vercel temporary/build folders
+.vercel
+.render
+build/
+tmp/
+temp/
+.cache/
