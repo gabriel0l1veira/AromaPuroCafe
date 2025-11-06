@@ -21,7 +21,7 @@ def create_app():
 
     # ✅ Configuração completa de CORS (com suporte a preflight)
     CORS(app, resources={r"/*": {
-        "origins": ["http://localhost:3000", "http://127.0.0.1:3000"],
+        "origins": ["http://localhost:3000", "http://127.0.0.1:3000", "https://aroma-puro-cafe.vercel.app"],
         "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         "allow_headers": ["Content-Type", "Authorization"],
         "supports_credentials": True
