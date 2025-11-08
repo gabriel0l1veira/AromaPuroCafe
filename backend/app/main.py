@@ -19,13 +19,9 @@ def create_app():
     app.json.ensure_ascii = False
     app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "dev_secret_key")
 
-    # ✅ Configuração completa de CORS (com suporte a preflight)
+    # ✅ Configuração de CORS completa (para o frontend)
     CORS(app, resources={r"/*": {
-        "origins": [
-            "http://localhost:3000",
-            "http://127.0.0.1:3000",
-            "https://aroma-puro-cafe.vercel.app"
-        ],
+        "origins": ["http://localhost:3000", "https://aroma-puro-cafe.vercel.app"],
         "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         "allow_headers": ["Content-Type", "Authorization"],
         "supports_credentials": True
@@ -47,11 +43,12 @@ def create_app():
     return app
 
 
-# ✅ Define o app para o Gunicorn
-app = create_app()
-
+# ✅ Torna o app acessível pelo Gunicorn no Render
 if __name__ == "__main__":
+    app = create_app()
     print("\n🔍 Rotas registradas:")
     for rule in sorted(app.url_map.iter_rules(), key=lambda r: str(r)):
         print(f"➡  {rule}")
     app.run(debug=True, port=5000)
+else:
+    app = create_app()
