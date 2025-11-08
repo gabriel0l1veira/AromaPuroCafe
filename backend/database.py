@@ -1,11 +1,9 @@
 import os
-import sys
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, declarative_base
+from sqlalchemy.orm import sessionmaker
 
+# Carrega as variáveis do .env
 load_dotenv()
 
 DATABASE_URL = os.getenv("DATABASE_URL")
@@ -13,10 +11,12 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 if not DATABASE_URL:
     raise RuntimeError("DATABASE_URL não configurada no .env!")
 
-# Cria o engine e a sessão
-engine = create_engine(DATABASE_URL, echo=True)  # deixe echo=True para ver os SQLs
+# Conexão com o banco PostgreSQL
+engine = create_engine(DATABASE_URL, echo=True)
+
+# Cria sessão
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-Base = declarative_base()
+
 
 def get_db():
     db = SessionLocal()

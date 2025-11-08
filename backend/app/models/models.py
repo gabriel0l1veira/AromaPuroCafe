@@ -54,6 +54,7 @@ class Produto(Base):
     preco_base = Column(DECIMAL(10, 2))
     estoque_disponivel = Column(Integer, default=0)
     imagem_url = Column(String(255), nullable=True)
+    descricao = Column(Text, nullable=True)
 
     # ✅ Cria automaticamente o ENUM no PostgreSQL
     tipo_produto = Column(

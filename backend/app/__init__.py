@@ -7,13 +7,14 @@ import os
 # Carrega variáveis de ambiente do .env
 load_dotenv()
 
-# Importação absoluta
-from database import engine, Base
+# Importação do engine e Base a partir do módulo database
+from database import engine
+from app.models import models  # Importa o módulo completo (com Base declarada dentro dele)
 
 def create_app():
     app = Flask(__name__)
 
-    # Configurações
+    # Configurações básicas do Flask e JWT
     app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
     app.config["JWT_SECRET_KEY"] = os.getenv("SECRET_KEY")
     app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
@@ -23,20 +24,17 @@ def create_app():
     CORS(app, origins=[os.getenv("FRONTEND_URL", "http://localhost:3000")])
     JWTManager(app)
 
-    # ✅ IMPORTA OS MODELOS ANTES DE CRIAR AS TABELAS
-    from app.models.produto import Produto
-    from app.models.categoria import Categoria
-    # (adicione aqui todos os outros modelos que você tiver)
+    # ✅ Cria todas as tabelas do banco se ainda não existirem
+    # Aqui usamos models.Base, pois é a Base declarada no arquivo models/models.py
+    models.Base.metadata.create_all(bind=engine)
 
-    # Cria tabelas no banco se não existirem
-    Base.metadata.create_all(bind=engine)
-
-    # Registra rotas
+    # ✅ Registra todas as rotas
     from app.routes import register_routes
     register_routes(app)
 
+    # Rota simples para verificar se a API está rodando
     @app.route("/")
     def index():
-        return {"message": "API do Aroma Puro Café (Flask) rodando!"}
+        return {"message": "API do Aroma Puro Café (Flask) rodando com PostgreSQL no Render!"}
 
     return app

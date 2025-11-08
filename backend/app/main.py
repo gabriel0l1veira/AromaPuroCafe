@@ -7,7 +7,8 @@ from dotenv import load_dotenv
 # Ajuste do path para permitir importações diretas
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from database import engine, Base
+from database import engine
+from app.models import models
 from app.routes import register_routes
 
 
@@ -31,7 +32,7 @@ def create_app():
     app.url_map.strict_slashes = False
 
     # ✅ Cria tabelas
-    Base.metadata.create_all(bind=engine)
+    models.Base.metadata.create_all(bind=engine)
 
     # ✅ Registra rotas
     register_routes(app)
