@@ -97,8 +97,8 @@ export default function DetalhesProduto() {
             onClick={() =>
               adicionarProduto({
                 id_produto: produto.id_produto,
-                nome: produto.nome,
-                preco_base: produto.preco_base,
+                nome_produto: produto.nome,
+                preco_unitario: produto.preco_base,
                 quantidade: 1,
               })
             }

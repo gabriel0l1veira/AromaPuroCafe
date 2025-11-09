@@ -2,7 +2,7 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 
 interface ItemCarrinho {
-  id_item_carrinho: number;
+  id_produto: number;
   nome_produto: string;
   preco_unitario: number;
   quantidade: number;
@@ -11,7 +11,7 @@ interface ItemCarrinho {
 
 interface CarrinhoContextType {
   carrinho: ItemCarrinho[];
-  adicionarAoCarrinho: (item: ItemCarrinho) => void;
+  adicionarProduto: (item: ItemCarrinho) => void;
   removerDoCarrinho: (id_item_carrinho: number) => void;
   limparCarrinho: () => void;
 }
@@ -21,12 +21,12 @@ const CarrinhoContext = createContext<CarrinhoContextType | undefined>(undefined
 export function CarrinhoProvider({ children }: { children: ReactNode }) {
   const [carrinho, setCarrinho] = useState<ItemCarrinho[]>([]);
 
-  const adicionarAoCarrinho = (item: ItemCarrinho) => {
+  const adicionarProduto = (item: ItemCarrinho) => {
     setCarrinho((prev) => {
-      const existente = prev.find((i) => i.id_item_carrinho === item.id_item_carrinho);
+      const existente = prev.find((i) => i.id_produto === item.id_produto);
       if (existente) {
         return prev.map((i) =>
-          i.id_item_carrinho === item.id_item_carrinho
+          i.id_produto === item.id_produto
             ? { ...i, quantidade: i.quantidade + item.quantidade }
             : i
         );
@@ -36,14 +36,14 @@ export function CarrinhoProvider({ children }: { children: ReactNode }) {
   };
 
   const removerDoCarrinho = (id_item_carrinho: number) => {
-    setCarrinho((prev) => prev.filter((i) => i.id_item_carrinho !== id_item_carrinho));
+    setCarrinho((prev) => prev.filter((i) => i.id_produto!== id_item_carrinho));
   };
 
   const limparCarrinho = () => setCarrinho([]);
 
   return (
     <CarrinhoContext.Provider
-      value={{ carrinho, adicionarAoCarrinho, removerDoCarrinho, limparCarrinho }}
+      value={{ carrinho, adicionarProduto, removerDoCarrinho, limparCarrinho }}
     >
       {children}
     </CarrinhoContext.Provider>
