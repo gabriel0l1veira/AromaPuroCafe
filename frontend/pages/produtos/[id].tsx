@@ -56,7 +56,7 @@ export default function DetalhesProduto() {
 
       if (res.ok) {
         adicionarAoCarrinho({
-          id_item_carrinho: Date.now(),
+          id_produto: Date.now(),
           nome_produto: produto.nome,
           preco_unitario: produto.preco_base,
           quantidade: 1,

@@ -15,7 +15,7 @@ interface Produto {
 export default function DetalhesProduto() {
   const router = useRouter();
   const { id } = router.query;
-  const { adicionarProduto } = useCarrinho();
+  const { adicionarAoCarrinho } = useCarrinho();
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
   const [produto, setProduto] = useState<Produto | null>(null);
@@ -95,7 +95,7 @@ export default function DetalhesProduto() {
 
           <button
             onClick={() =>
-              adicionarProduto({
+              adicionarAoCarrinho({
                 id_produto: produto.id_produto,
                 nome_produto: produto.nome,
                 preco_unitario: produto.preco_base,

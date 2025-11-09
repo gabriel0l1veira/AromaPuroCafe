@@ -11,7 +11,7 @@ interface ItemCarrinho {
 
 interface CarrinhoContextType {
   carrinho: ItemCarrinho[];
-  adicionarProduto: (item: ItemCarrinho) => void;
+  adicionarAoCarrinho: (item: ItemCarrinho) => void;
   removerDoCarrinho: (id_item_carrinho: number) => void;
   limparCarrinho: () => void;
 }
@@ -21,7 +21,7 @@ const CarrinhoContext = createContext<CarrinhoContextType | undefined>(undefined
 export function CarrinhoProvider({ children }: { children: ReactNode }) {
   const [carrinho, setCarrinho] = useState<ItemCarrinho[]>([]);
 
-  const adicionarProduto = (item: ItemCarrinho) => {
+  const adicionarAoCarrinho = (item: ItemCarrinho) => {
     setCarrinho((prev) => {
       const existente = prev.find((i) => i.id_produto === item.id_produto);
       if (existente) {
@@ -43,7 +43,7 @@ export function CarrinhoProvider({ children }: { children: ReactNode }) {
 
   return (
     <CarrinhoContext.Provider
-      value={{ carrinho, adicionarProduto, removerDoCarrinho, limparCarrinho }}
+      value={{ carrinho, adicionarAoCarrinho, removerDoCarrinho, limparCarrinho }}
     >
       {children}
     </CarrinhoContext.Provider>
