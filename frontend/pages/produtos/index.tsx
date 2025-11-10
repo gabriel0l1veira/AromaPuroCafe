@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
@@ -36,7 +38,7 @@ export default function ListaProdutos() {
 
   if (carregando) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-[#6f4728]">
+      <div className="min-h-screen flex items-center justify-center text-cafe-destaque font-medium">
         Carregando produtos...
       </div>
     );
@@ -44,26 +46,30 @@ export default function ListaProdutos() {
 
   if (erro) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-red-600">
+      <div className="min-h-screen flex items-center justify-center text-red-600 font-semibold">
         {erro}
       </div>
     );
   }
 
   return (
-    <main className="min-h-screen bg-[#f9f6f1] px-6 py-10">
-      <h1 className="text-3xl font-['Playfair_Display'] font-bold text-[#4b2e14] mb-10 text-center">
+    <main className="min-h-screen bg-cafe-claro px-6 py-20 text-cafe-escuro font-['Inter']">
+      {/* 🏷️ Título */}
+      <h1 className="text-4xl md:text-5xl font-['Playfair_Display'] font-bold text-center mb-12">
         Nossos Produtos
       </h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      {/* 🛍️ Lista de Produtos */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
         {produtos.length > 0 ? (
-          produtos.map((produto) => (
+          produtos.map((produto, i) => (
             <div
               key={produto.id_produto}
-              className="bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col hover:scale-105 transition-transform"
+              className="bg-white rounded-3xl border border-cafe-medio shadow-md hover:shadow-xl overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-1 opacity-0 animate-fadeSlideIn"
+              style={{ animationDelay: `${i * 0.1}s` }}
             >
-              <div className="w-full h-56 bg-[#f3e9dc] flex items-center justify-center overflow-hidden">
+              {/* Imagem */}
+              <div className="w-full h-56 bg-cafe-suave flex items-center justify-center overflow-hidden">
                 <img
                   src={
                     produto.imagem_url
@@ -73,19 +79,21 @@ export default function ListaProdutos() {
                       : "/placeholder.png"
                   }
                   alt={produto.nome}
-                  className="object-cover w-full h-full"
+                  className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"
                 />
               </div>
 
-              <div className="p-5 flex flex-col flex-grow">
-                <h2 className="text-lg font-semibold text-[#4b2e14] mb-2">
+              {/* Conteúdo */}
+              <div className="p-6 flex flex-col flex-grow">
+                <h2 className="text-xl font-semibold text-cafe-escuro mb-2 font-['Playfair_Display']">
                   {produto.nome}
                 </h2>
-                <p className="text-[#8b5e34] font-semibold mb-3">
+                <p className="text-cafe-destaque font-bold text-lg mb-3">
                   R$ {produto.preco_base.toFixed(2)}
                 </p>
+
                 <p
-                  className={`text-sm mb-4 ${
+                  className={`text-sm mb-4 font-medium ${
                     produto.estoque_disponivel > 0
                       ? "text-green-700"
                       : "text-red-600"
@@ -98,7 +106,7 @@ export default function ListaProdutos() {
 
                 <Link
                   href={`/produtos/${produto.id_produto}`}
-                  className="mt-auto text-center bg-[#8b5e34] hover:bg-[#6f4728] text-white py-2 rounded-xl font-semibold transition-all"
+                  className="mt-auto text-center bg-cafe-destaque hover:bg-cafe-hover text-white py-3 rounded-xl font-semibold transition-all shadow-md hover:shadow-lg"
                 >
                   Ver Detalhes
                 </Link>
@@ -106,7 +114,7 @@ export default function ListaProdutos() {
             </div>
           ))
         ) : (
-          <p className="col-span-full text-center text-[#6f4728]">
+          <p className="col-span-full text-center text-cafe-medio">
             Nenhum produto disponível no momento.
           </p>
         )}

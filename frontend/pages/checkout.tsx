@@ -83,15 +83,15 @@ export default function Checkout() {
   };
 
   return (
-    <main className="min-h-screen bg-[#f9f6f1] px-6 py-10">
-      <h1 className="text-3xl font-['Playfair_Display'] font-bold text-[#4b2e14] mb-10 text-center">
+    <main className="min-h-screen bg-[#f3efea] px-6 py-10 text-[#2e1a0d]">
+      <h1 className="text-3xl font-['Playfair_Display'] font-bold text-center mb-10 text-[#3a2411]">
         Finalizar Pedido
       </h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
         {/* 🧾 Coluna Esquerda — Itens do Pedido */}
-        <section className="bg-white p-6 rounded-2xl shadow-lg space-y-4">
-          <h2 className="text-xl font-semibold mb-4">Resumo do Pedido</h2>
+        <section className="bg-white p-6 rounded-2xl shadow-lg space-y-4 border border-[#e7dccd]">
+          <h2 className="text-xl font-semibold mb-4 text-[#3a2411]">Resumo do Pedido</h2>
           {itens.length === 0 ? (
             <p className="text-[#6f4728]">Seu carrinho está vazio.</p>
           ) : (
@@ -101,7 +101,7 @@ export default function Checkout() {
                 className="flex items-center justify-between border-b border-[#e0cdb7] pb-3"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-lg overflow-hidden bg-[#f3e9dc] flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-lg overflow-hidden bg-[#f6f1ea] flex items-center justify-center shadow-sm">
                     {item.imagem_url ? (
                       <img
                         src={
@@ -113,17 +113,17 @@ export default function Checkout() {
                         className="w-full h-full object-cover"
                       />
                     ) : (
-                      <span className="text-sm text-[#8b5e34]">☕</span>
+                      <span className="text-sm text-[#a06b42]">☕</span>
                     )}
                   </div>
                   <div>
                     <p className="font-medium">{item.nome_produto}</p>
-                    <p className="text-sm text-[#5a4631]">
+                    <p className="text-sm text-[#4a3323]">
                       {item.quantidade}x R$ {item.preco_unitario.toFixed(2)}
                     </p>
                   </div>
                 </div>
-                <p className="font-semibold text-[#8b5e34]">
+                <p className="font-semibold text-[#a06b42]">
                   R$ {(item.quantidade * item.preco_unitario).toFixed(2)}
                 </p>
               </div>
@@ -137,20 +137,20 @@ export default function Checkout() {
         </section>
 
         {/* 🧍 Coluna Direita — Dados do Cliente */}
-        <section className="bg-white p-6 rounded-2xl shadow-lg space-y-4">
-          <h2 className="text-xl font-semibold mb-4">Dados para Entrega</h2>
+        <section className="bg-white p-6 rounded-2xl shadow-lg space-y-4 border border-[#e7dccd]">
+          <h2 className="text-xl font-semibold mb-4 text-[#3a2411]">Dados para Entrega</h2>
 
           <input
             type="text"
             placeholder="Nome completo"
-            className="w-full border rounded-lg px-4 py-2"
+            className="w-full border border-[#d8c4b4] rounded-xl px-4 py-2 focus:ring-2 focus:ring-[#a06b42] focus:outline-none"
             value={nome}
             onChange={(e) => setNome(e.target.value)}
           />
           <input
             type="text"
             placeholder="Endereço"
-            className="w-full border rounded-lg px-4 py-2"
+            className="w-full border border-[#d8c4b4] rounded-xl px-4 py-2 focus:ring-2 focus:ring-[#a06b42] focus:outline-none"
             value={endereco}
             onChange={(e) => setEndereco(e.target.value)}
           />
@@ -158,14 +158,14 @@ export default function Checkout() {
             <input
               type="text"
               placeholder="Número"
-              className="border rounded-lg px-4 py-2"
+              className="border border-[#d8c4b4] rounded-xl px-4 py-2 focus:ring-2 focus:ring-[#a06b42] focus:outline-none"
               value={numero}
               onChange={(e) => setNumero(e.target.value)}
             />
             <input
               type="text"
               placeholder="Bairro"
-              className="border rounded-lg px-4 py-2"
+              className="border border-[#d8c4b4] rounded-xl px-4 py-2 focus:ring-2 focus:ring-[#a06b42] focus:outline-none"
               value={bairro}
               onChange={(e) => setBairro(e.target.value)}
             />
@@ -174,24 +174,29 @@ export default function Checkout() {
             <input
               type="text"
               placeholder="Cidade"
-              className="border rounded-lg px-4 py-2"
+              className="border border-[#d8c4b4] rounded-xl px-4 py-2 focus:ring-2 focus:ring-[#a06b42] focus:outline-none"
               value={cidade}
               onChange={(e) => setCidade(e.target.value)}
             />
+            {/* 🔹 CEP: apenas números */}
             <input
               type="text"
-              placeholder="CEP"
-              className="border rounded-lg px-4 py-2"
+              placeholder="CEP (apenas números)"
+              className="border border-[#d8c4b4] rounded-xl px-4 py-2 focus:ring-2 focus:ring-[#a06b42] focus:outline-none"
               value={cep}
-              onChange={(e) => setCep(e.target.value)}
+              maxLength={8}
+              onChange={(e) => {
+                const onlyNums = e.target.value.replace(/\D/g, "");
+                setCep(onlyNums);
+              }}
             />
           </div>
 
           <div>
-            <h3 className="font-semibold mt-4 mb-2">Forma de Pagamento</h3>
+            <h3 className="font-semibold mt-4 mb-2 text-[#3a2411]">Forma de Pagamento</h3>
             <div className="flex flex-wrap gap-4">
               {["pix", "boleto", "cartao_credito", "cartao_debito"].map((opcao) => (
-                <label key={opcao} className="flex items-center gap-2">
+                <label key={opcao} className="flex items-center gap-2 text-[#4a3323]">
                   <input
                     type="radio"
                     name="forma_pagamento"
@@ -208,13 +213,23 @@ export default function Checkout() {
           </div>
 
           {mensagem && (
-            <p className="text-sm text-[#8b5e34] mt-2 text-center">{mensagem}</p>
+            <p
+              className={`text-sm mt-2 text-center font-medium ${
+                mensagem.startsWith("✅")
+                  ? "text-green-700"
+                  : mensagem.startsWith("⚠️")
+                  ? "text-yellow-700"
+                  : "text-red-700"
+              }`}
+            >
+              {mensagem}
+            </p>
           )}
 
           <button
             onClick={finalizarPedido}
             disabled={finalizando}
-            className="w-full bg-[#8b5e34] hover:bg-[#6f4728] text-white py-3 rounded-xl mt-4 font-semibold transition-all"
+            className="w-full bg-[#a06b42] hover:bg-[#874d2b] text-white py-3 rounded-xl mt-4 font-semibold transition-all shadow-md hover:shadow-lg"
           >
             {finalizando ? "Finalizando..." : "Finalizar Pedido"}
           </button>
